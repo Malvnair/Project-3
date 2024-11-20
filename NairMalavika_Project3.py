@@ -31,6 +31,9 @@ def solve_system(rho_c, r_start=1e-6, r_end=1e7, num_points=1000):
     result = solve_ivp(coupled_system, [r_start, r_end], y0, t_eval=r_eval)
     return result
 
+rho_c_values = np.logspace(-1, 6, 10)  # 10 values of rho_c
+results = []
+
 
 
 
