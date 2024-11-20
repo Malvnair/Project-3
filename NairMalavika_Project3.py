@@ -9,6 +9,8 @@ mu_e = 2
 r_0 = (7.72e8) * mu_e 
 m_0 = (5.67e33) / (mu_e)**2
 rho_0 = (9.74e5) / mu_e 
+# 2e33
+# 6.957e10
 
 
 
@@ -29,12 +31,15 @@ rho_c_values = np.logspace(-1, 6.4, 10)
 results = []
 
 
+def events(r, y):
+    return y[0]
+
 for rho_c in rho_c_values:
     #intial vector
     y0 = [rho_c, 0]  
     r_span = (1e-8, 1e7) 
     solution = solve_ivp(coupled_system, r_span, y0, method='RK45',
-                         events=lambda r, y: y[0])  
+                         events=[events])  
     r_end = solution.t[-1]
     m_end = solution.y[1, -1]
     results.append((r_end, m_end))
@@ -45,7 +50,10 @@ radii = results_array[:, 0] * r_0
 masses = results_array[:, 1] * m_0  
 
     
-
+################
+#####PART2######
+##############
+print(f"The largest mass is {m_end:.4f}e33.")
 
 plt.figure(figsize=(8, 6))
 plt.plot(masses, radii, marker='o')
@@ -53,11 +61,7 @@ plt.xlabel('Mass (g)')
 plt.ylabel('Radius (cm)')
 plt.title('Mass-Radius Relation of White Dwarfs')
 plt.grid()
-plt.legend()
 plt.show()
-
-
-
 
 
 
