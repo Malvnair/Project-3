@@ -21,6 +21,17 @@ def coupled_system(r,y):
     d_m_dr = K2 * r**2 * rho
     return [d_rho_dr, d_m_dr]
 
+#def function to solve the odes
+def solve_system(rho_c, r_start=1e-6, r_end=1e7, num_points=1000):
+   #initial vector
+    y0 = [rho_c, 0]  
+    #create linspace (logarithm form due to large numbers)
+    r_eval = np.logspace(np.log10(r_start), np.log10(r_end), num_points)
+    #solve the ode
+    result = solve_ivp(coupled_system, [r_start, r_end], y0, t_eval=r_eval)
+    return result
+
+
 
 
 
