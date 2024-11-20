@@ -1,5 +1,7 @@
 import numpy as np
 from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+
 
 
 # Define constants
@@ -34,8 +36,25 @@ def solve_system(rho_c, r_start=1e-6, r_end=1e7, num_points=1000):
 rho_c_values = np.logspace(-1, 6, 10)  # 10 values of rho_c
 results = []
 
+for rho_c in rho_c_values:
+    solution = solve_system(rho_c)
+    results.append(solution)
+    
 
+for i, sol in enumerate(results):
+    r_values = sol.t
+    rho_values, m_values = sol.y
+    plt.plot(r_values, m_values)
+    
 
+plt.xlabel('Radius (r)')
+plt.ylabel('Mass (M)')
+plt.xscale('log')
+plt.yscale('log')
+plt.legend()
+plt.title('White Dwarf Mass-Radius Relation')
+plt.grid(True)
+plt.show()
 
 
 
