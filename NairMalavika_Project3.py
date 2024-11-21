@@ -112,7 +112,7 @@ plt.grid()
 plt.show()
 
 
-#compare esult
+#compare result
 for i in range(len(selected_rho_c_values)):
     rk45_radius, rk45_mass = radii[i], masses[i]
     dop853_radius, dop853_mass = radii_new[i], masses_new[i]
@@ -125,3 +125,27 @@ for i in range(len(selected_rho_c_values)):
     print(f"Radius Difference: {radius_diff:.4e} Rsun")
     print(f"RK45 Mass: {rk45_mass:.4e} Msun, DOP853 Mass: {dop853_mass:.4e} Msun")
     print(f"Mass Difference: {mass_diff:.4e} Msun\n")
+    
+    
+################
+#####PART4######
+################
+
+data = np.loadtxt('wd_mass_radius.csv', delimiter=',', skiprows=1)
+
+#extract columns from the loaded data
+masses_obs = data[:, 0]
+mass_unc = data[:, 1]
+radii_obs = data[:, 2]
+radius_unc = data[:, 3]
+
+plt.figure(figsize=(10, 7))
+plt.plot(masses, radii, label='Computed Relation', linestyle='-', marker='o', color='blue')
+plt.errorbar(masses_obs, radii_obs, xerr=mass_unc, yerr=radius_unc, fmt='o', label='Observational Data', color='red')
+plt.xlabel('Mass (Msun)')
+plt.ylabel('Radius (Rsun)')
+plt.title('Computed and Observed Mass-Radius Relations')
+plt.legend()
+plt.grid()
+plt.show()
+
