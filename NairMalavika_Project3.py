@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 # Define constants
 mu_e = 2
-r_0 = (7.72e8/6.957e10) * mu_e 
+r_0 = (7.72e8/6.957e10) / mu_e 
 m_0 = (5.67e33/2e33) / (mu_e)**2
 rho_0 = (9.74e5) / mu_e 
 
