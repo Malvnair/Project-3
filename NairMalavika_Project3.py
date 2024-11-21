@@ -62,7 +62,7 @@ Ch_theoretical = 5.836 / (mu_e ** 2)
 print(f"Theoretical Chandrasekhar limit: {Ch_theoretical:.4f} Msun")
 print(f"The largest mass is {largest_mass:.4f} Msun.")
 print(f"The difference between these two masses is {(Ch_theoretical - largest_mass):.4f} Msun, "
-      f"with a percent error of {abs((Ch_theoretical - largest_mass) / Ch_theoretical) * 100:.2f}%.")
+      f"with a percent error of {abs((Ch_theoretical - largest_mass) / Ch_theoretical) * 100:.2f}%.\n")
 
 
 
@@ -112,6 +112,20 @@ plt.legend()
 plt.grid()
 plt.show()
 
+
+#compare esult
+for i in range(len(selected_rho_c_values)):
+    rk45_radius, rk45_mass = radii[i], masses[i]
+    dop853_radius, dop853_mass = radii_new[i], masses_new[i]
+    
+    radius_diff = abs(dop853_radius - rk45_radius)
+    mass_diff = abs(dop853_mass - rk45_mass)
+    
+    print(f"Central Density: {selected_rho_c_values[i]:.4e}")
+    print(f"RK45 Radius: {rk45_radius:.4e} Rsun, DOP853 Radius: {dop853_radius:.4e} Rsun")
+    print(f"Radius Difference: {radius_diff:.4e} Rsun")
+    print(f"RK45 Mass: {rk45_mass:.4e} Msun, DOP853 Mass: {dop853_mass:.4e} Msun")
+    print(f"Mass Difference: {mass_diff:.4e} Msun\n")
 
 
 
