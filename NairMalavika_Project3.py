@@ -81,7 +81,8 @@ plt.show()
 ################
 
 #pick random rho_c
-selected_rho_c_values = np.random.choice(rho_c_values, size=3, replace=False)
+selected_rho_c_values = np.sort(np.random.choice(rho_c_values, size=3, replace=False)[::-1])
+
 
 #different integration method
 method = 'DOP853'
