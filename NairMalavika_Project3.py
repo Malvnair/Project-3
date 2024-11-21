@@ -53,7 +53,9 @@ masses = results_array[:, 1] * m_0
     
 ################
 #####PART2######
-##############
+################
+
+
 largest_mass = max(masses)
 Ch_theoretical = 5.836 / (mu_e ** 2)
 
@@ -72,6 +74,43 @@ plt.title('Mass-Radius Relation of White Dwarfs')
 plt.grid()
 plt.show()
 
+
+   
+################
+#####PART3######
+################
+
+#pick random rho_c
+selected_rho_c_values = np.random.choice(rho_c_values, size=3, replace=False)
+
+#different integration method
+method = 'DOP853'
+method_results = []
+
+for rho_c in selected_rho_c_values:
+    y0 = [rho_c, 0]  
+    r_span = (1e-8, 1e7) 
+    solution = solve_ivp(coupled_system, r_span, y0, method=method,
+                         events=[events])  
+    r_end = solution.t[-1]
+    m_end = solution.y[1, -1]
+    method_results.append((r_end, m_end))
+
+
+method_results_array = np.array(method_results) 
+radii_new = method_results_array[:, 0] 
+masses_new = method_results_array[:, 1]
+
+
+
+plt.figure(figsize=(8, 6))
+plt.plot(masses_new, radii_new, marker='o', label=f'Method: {method}')
+plt.xlabel('Mass (Msun)')
+plt.ylabel('Radius (Rsun)')
+plt.title('Mass-Radius Relation Using DOP853 Method')
+plt.legend()
+plt.grid()
+plt.show()
 
 
 
