@@ -32,7 +32,7 @@ results = []
 
 
 def events(r, y):
-    return y[0]
+        return y[0] 
 
 for rho_c in rho_c_values:
     #intial vector
@@ -91,16 +91,15 @@ for rho_c in selected_rho_c_values:
     y0 = [rho_c, 0]  
     r_span = (1e-8, 1e7) 
     solution = solve_ivp(coupled_system, r_span, y0, method=method,
-                         events=[events])  
+                        events=[events])  
     r_end = solution.t[-1]
     m_end = solution.y[1, -1]
     method_results.append((r_end, m_end))
 
 
 method_results_array = np.array(method_results) 
-radii_new = method_results_array[:, 0] 
-masses_new = method_results_array[:, 1]
-
+radii_new = method_results_array[:, 0] * r_0  
+masses_new = method_results_array[:, 1]* m_0  
 
 
 plt.figure(figsize=(8, 6))
@@ -126,6 +125,3 @@ for i in range(len(selected_rho_c_values)):
     print(f"Radius Difference: {radius_diff:.4e} Rsun")
     print(f"RK45 Mass: {rk45_mass:.4e} Msun, DOP853 Mass: {dop853_mass:.4e} Msun")
     print(f"Mass Difference: {mass_diff:.4e} Msun\n")
-
-
-
