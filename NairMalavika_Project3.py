@@ -94,6 +94,14 @@ for rho_c in rho_c_values:
     results.append((r_end, m_end))
 
 
+# Print the results for the 10 values of rho_c.
+print("rho_c (g/cm^3)   Radius (Rsun)    Mass (Msun)")
+for i, rho_c in enumerate(rho_c_values):
+    radius = results[i][0] * r_0
+    mass = results[i][1] * m_0
+    print(f"{rho_c:.2e}          {radius:.4f}         {mass:.4f}")
+
+
 
 ################
 #####PART2######
@@ -112,7 +120,7 @@ largest_mass = max(masses)
 Ch_theoretical = 5.836 / (mu_e ** 2)
 
 # Print the masses.
-print(f"Theoretical Chandrasekhar limit: {Ch_theoretical:.4f} Msun")
+print(f"\nTheoretical Chandrasekhar limit: {Ch_theoretical:.4f} Msun")
 print(f"The largest mass is {largest_mass:.4f} Msun.")
 
 # Print the difference and percent error between the two masses.
