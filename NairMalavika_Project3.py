@@ -199,6 +199,8 @@ for i in range(len(selected_rho_c_values)):
     print(f"Radius Difference: {radius_diff:.4e} Rsun")
     print(f"RK45 Mass: {rk45_mass:.4e} Msun, DOP853 Mass: {dop853_mass:.4e} Msun")
     print(f"Mass Difference: {mass_diff:.4e} Msun\n")
+
+print("The results are close but do appear to have a mass difference of approximately >1 Msun.\n")
     
     
 ################
@@ -226,3 +228,27 @@ plt.legend()
 plt.grid()
 plt.show()
 
+# Initialize an empty list to store absolute differences.
+absolute_differences = []
+
+# Loop through each observed mass.
+for i in range(len(masses_obs)):
+    obs_mass = masses_obs[i]
+    obs_radius = radii_obs[i]
+    
+    # Find the index of the closest computed mass.
+    closest_index = np.argmin(np.abs(masses - obs_mass))
+    
+    # Compute the absolute difference in radius.
+    absolute_difference = np.abs(obs_radius - radii[closest_index])
+    
+    # Append the absolute difference to the list.
+    absolute_differences.append(absolute_difference)
+    
+    
+# Print the absolute differences for each observation.
+print("Absolute Differences Between Observed and Computed Radii:")
+for i, diff in enumerate(absolute_differences):
+    print(f"Observation {i}: {diff:.4f} Rsun")
+    
+print("Therefore, the observations agree with the calculations well. ")
